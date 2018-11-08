@@ -3,8 +3,11 @@ var cache = {
         window.localStorage.setItem(key, JSON.stringify(value));
     },
     getItem: function(key) {
-        return window.localStorage.getItem(key);
+        return JSON.parse(window.localStorage.getItem(key));
+    },
+    removeItem: function(key) {
+        window.localStorage.removeItem(key);
     }
 };
 
-export default cache;
+module.exports = cache;

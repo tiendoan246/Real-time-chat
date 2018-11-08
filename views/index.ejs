@@ -392,12 +392,58 @@
                 ' <div class="sender media-right friend-box"><a href="javascript:void(0);" title="Your"><img src="/files/assets/images/avatar-2.jpg" class=" img-chat-profile" alt="Me"></a> </div>' +
                 '</div>');
             });
+            
+            // online
+            socket.on("online-send-nickname", function(user) {
+                var _box_users = $('.users-main').find('.user-box');
+                _box_users.append(`<div class="media userlist-box" 
+                                        data-id="${Math.floor(Math.random() * 1000) + 1}"
+                                        data-status="${user.status}"
+                                        data-username="${user.username}"
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="${user.username}">
+                                        <a class="media-left" href="#!">
+                                            <img class="media-object  " src="${user.img}" alt="${user.username}">
+                                            <div class="live-status bg-success"></div>
+                                        </a>
+                                        <div class="media-body">
+                                            <div class="f-13 chat-header">${user.username}</div>
+                                        </div>
+                                    </div>`);
+            });
+            
+            // offline
+            socket.on("offline-send-nickname", function(user) {
+                $('.users-main').find('.userlist-box').filter(`[data-username="${user.username}"]`).remove();
+            });
 
             $(document).on('click', '#main-chat #paper-btn', function (e) {
                 var text= $($(e.currentTarget).parent().parent().parent()).find(".input-value").val();
                 $($(e.currentTarget).parent().parent().parent()).find(".input-value").val('');
                 // sending to all clients except sender
                 socket.emit('chat-message', text);
+
+                var _box_message = $('.chat-single-box').find('.messages');
+                _box_message.append(
+                    `<div class="message out no-avatar media">
+                        <div class="body media-body text-right p-l-50">
+                            <div class="content msg-reply f-12 bg-primary d-inline-block">
+                                ${text}
+                            </div>
+                            <div class="seen">
+                                <i class="icon-clock f-12 m-r-5 txt-muted d-inline-block"></i>
+                                <span><p class="d-inline-block">a few seconds ago </p></span>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="sender media-right friend-box">
+                            <a href="javascript:void(0);" title="Your">
+                                <img src="${socket.img}" class=" img-chat-profile" alt="Me">
+                            </a>
+                        </div>
+                    </div>`);
+
                 return false;
             }); 
         });
