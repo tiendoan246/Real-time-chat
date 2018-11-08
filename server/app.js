@@ -4,7 +4,7 @@ const http = require("http").Server(app);
 var io = require('socket.io')(http);
 const bodyParser = require("body-parser");
 const port = 3000;
-const users = require("./models/user").default;
+const users = require("./models/user");
 
 express.static("/");
 app.set("view engine", "ejs");
