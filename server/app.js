@@ -25,7 +25,7 @@ io.on("connection", function(socket) {
 
     socket.on("chat-message", function(msg) {
         // sending to all clients except sender
-        socket.broadcast.emit('chat-message', msg);
+        socket.broadcast.emit('chat-message', msg, user);
     });
 
     socket.on("disconnect", function() {

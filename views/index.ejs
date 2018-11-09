@@ -226,59 +226,7 @@
                                             <div class="row">
                                                 <div class="chat-box">
                                                     <ul class="text-right boxs">
-                                                        <li class="chat-single-box card-shadow bg-white active" data-id="1">
-                                                            <div class="had-container">
-                                                                <div class="chat-header p-10 bg-gray">
-                                                                    <div class="user-info d-inline-block f-left">
-                                                                        <div class="box-live-status bg-danger  d-inline-block m-r-10"></div>
-                                                                        <a href="#">Josephin Doe</a>
-                                                                    </div>
-                                                                    <div class="box-tools d-inline-block">
-                                                                        <a href="#" class="mini">
-                                                                            <i class="icofont icofont-minus f-20 m-r-10"></i>
-                                                                        </a>
-                                                                        <a class="close" href="#">
-                                                                            <i class="icofont icofont-close f-20"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="chat-body p-10">
-                                                                    <div class="message-scrooler">
-                                                                        <div class="messages">
-                                                                            <div class="message out no-avatar media">
-                                                                                <div class="body media-body text-right p-l-50">
-                                                                                    <div class="content msg-reply f-12 bg-primary d-inline-block">Good
-                                                                                        morning..</div>
-                                                                                    <div class="seen"><i class="icon-clock f-12 m-r-5 txt-muted d-inline-block"></i><span>a
-                                                                                            few seconds ago </span>
-                                                                                        <div class="clear"></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="sender media-right friend-box">
-                                                                                    <a href="javascript:void(0);" title="Me"><img
-                                                                                            src="/files/assets/images/avatar-1.jpg"
-                                                                                            class="  img-chat-profile"
-                                                                                            alt="Me"></a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="chat-footer b-t-muted">
-                                                                    <form id="chat-form" action="" method="POST">
-                                                                        <div class="input-group write-msg">
-                                                                            <input type="text" class="form-control input-value"
-                                                                                placeholder="Type a Message">
-                                                                            <span class="input-group-btn">
-                                                                                <button type="button" id="paper-btn" class="btn btn-primary">
-                                                                                    <i class="icofont icofont-paper-plane"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </li>
+                                                        <!--Chat box-->
                                                     </ul>
                                                     <div id="sidebar" class="users p-chat-user">
                                                         <div class="had-container">
@@ -318,7 +266,8 @@
                                                                     </div>
 
                                                                     <% for(let i = 0; i < users.length; i++) { %>
-                                                                        <div class="media userlist-box" data-id="<%= (i + 1) %>"
+                                                                        <div class="media userlist-box" 
+                                                                            data-id="<%= users[i].username %>"
                                                                             data-status="<%= users[i].status %>"
                                                                             data-username="<%= users[i].username %>"
                                                                             data-toggle="tooltip"
@@ -384,13 +333,28 @@
     <script>
         $(function() {
             var socket = io();
-            
-            socket.on("chat-message", function (msg) {
+            const msg = ``;
+
+            socket.on("chat-message", function (msg, user) {
+                addChatBox(user.username, user.username, user.status);
                 var _box_message = $('.chat-single-box').find('.messages');
-                _box_message.append('<div class="message out no-avatar media">' +
-                '<div class="body media-body text-right p-l-50"><div class="content msg-reply f-12 bg-primary d-inline-block">'+ msg +'</div><div class="seen"><i class="icon-clock f-12 m-r-5 txt-muted d-inline-block"></i><span><p class="d-inline-block">a few seconds ago </p></span><div class="clear"></div> </div></div>' +
-                ' <div class="sender media-right friend-box"><a href="javascript:void(0);" title="Your"><img src="/files/assets/images/avatar-2.jpg" class=" img-chat-profile" alt="Me"></a> </div>' +
-                '</div>');
+                _box_message.append(`<div class="message out no-avatar media">
+                        <div class="body media-body text-right p-l-50">
+                            <div class="content msg-reply f-12 bg-primary d-inline-block">
+                                ${msg}
+                            </div>
+                            <div class="seen">
+                                <i class="icon-clock f-12 m-r-5 txt-muted d-inline-block"></i>
+                                <span><p class="d-inline-block">a few seconds ago </p></span>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="sender media-right friend-box">
+                            <a href="javascript:void(0);" title="Your">
+                                <img src="${user.img}" class=" img-chat-profile" alt="Me">
+                            </a>
+                        </div>
+                    </div>`);
             });
             
             // online

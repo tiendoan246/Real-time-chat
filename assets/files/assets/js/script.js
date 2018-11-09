@@ -343,7 +343,7 @@ $('#styleSelector').append('' +
 '</div>' +
 '<ul>'+
     '<li>' +
-        '<a href="http://html.codedthemes.com/Adminty/doc" target="_blank" class="btn btn-primary btn-block m-r-15 m-t-5 m-b-10">Online Documentation</a>' +
+        '<a href="#" target="_blank" class="btn btn-primary btn-block m-r-15 m-t-5 m-b-10">Online Documentation</a>' +
     '</li>' +
     '<li class="text-center">' +
         '<span class="text-center f-18 m-t-15 m-b-15 d-block">Thank you for sharing !</span>' +
