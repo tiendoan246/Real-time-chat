@@ -13,7 +13,8 @@ app.set("view engine", "ejs");
 app.use(express.static("assets"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-io.on("connection", function(socket) {
+io.of("/chat")
+    .on("connection", function(socket) {
     const user = userService.getUser();
     users.push(user);
 

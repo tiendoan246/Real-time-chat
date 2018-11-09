@@ -332,8 +332,7 @@
     <script type="text/javascript" src="/files/assets/js/script.js"></script>
     <script>
         $(function() {
-            var socket = io();
-            const msg = ``;
+            var socket = io.connect("http://localhost:3000/chat");
 
             socket.on("chat-message", function (msg, user) {
                 addChatBox(user.username, user.username, user.status);
